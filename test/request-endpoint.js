@@ -133,12 +133,17 @@ describe('request-endpoint', () => {
             }
         }).get('/games/').query({
             fields: 'name,genres.name',
-            expand: ['genres']
+            expand: 'genres'
         }).reply(200, _response);
 
         return igdb(configuration.api.key).games({
-            fields: 'name,genres.name',
-            expand: ['genres']
+            fields: [
+                'name',
+                'genres.name'
+            ],
+            expand: [
+                'genres'
+            ]
         }).then(response => {
             expect(response.body).to.eql(_response);
         });
